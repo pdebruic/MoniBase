@@ -23,3 +23,18 @@ ODBCleanCodeTest >> testNoDuplicatedMethodInHierarchy [
 		assert: methods isEmpty 
 		description: ('the following methods are already in the superclass hierarchy and can be removed: ', methods asString)
 ]
+
+{ #category : #tests }
+ODBCleanCodeTest >> testNoUnusedInstanceVariablesLeft [
+	| variables classes validExceptions remaining |
+	
+	variables := OmniBase package definedClasses flatCollect: [ :each | each instanceVariables ].
+	variables := variables reject: [ :each | each isReferenced ].
+	
+	classes := variables collect: [ :each | each definingClass ] as: Set.
+	
+	validExceptions := { }.	
+	
+	remaining := classes asOrderedCollection removeAll: validExceptions; yourself.
+	self assert: remaining isEmpty description: ('the following classes have unused instance variables and should be cleaned: ', remaining asString)
+]

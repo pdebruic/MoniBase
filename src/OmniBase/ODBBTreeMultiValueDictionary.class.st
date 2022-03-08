@@ -5,9 +5,8 @@ Class {
 	#name : #ODBBTreeMultiValueDictionary,
 	#superclass : #ODBBTreeIndexDictionary,
 	#instVars : [
-		'deltaSize',
 		'initialSize',
-		'newObjects'
+		'deltaSize'
 	],
 	#category : #'OmniBase-Transaction'
 }
